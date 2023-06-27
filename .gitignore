@@ -1,0 +1,6 @@
+*.exe
+*.bin
+/base
+*.json
+*.sum
+*.deb
