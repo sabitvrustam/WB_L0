@@ -1,4 +1,4 @@
-package natsCconnect
+package natsConnect
 
 import (
 	"os"
