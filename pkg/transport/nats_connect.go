@@ -1,15 +1,17 @@
-package nats_connect
+package natsCconnect
 
 import (
 	"os"
 
 	stan "github.com/nats-io/stan.go"
+	"github.com/sirupsen/logrus"
 )
 
-func nats_connect() {
+func natsConnect(log *logrus.Logger) (sc stan.Conn, err error) {
 
 	var clusterID string = os.Getenv("nats_clusterID")
 	var clientID string = os.Getenv("nats_clientID")
 
-	sc, _ := stan.Connect(clusterID, clientID)
+	sc, err = stan.Connect(clusterID, clientID)
+	return sc, err
 }
