@@ -6,8 +6,9 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}",
+            "program": "${workspaceFolder}/cmd/app",
             "cwd": "${workspaceFolder}",
+            "env": {"bduser": "postgres", "bdpass": "root", "nats_clusterID": "test-cluster", "clientI": "Rustam" },
         }
     ]
 }
