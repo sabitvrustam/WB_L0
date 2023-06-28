@@ -12,4 +12,9 @@ func main() {
 		panic(err)
 	}
 
+	_, err = natsConnect.natsConnect(log)
+	if err != nil {
+		panic(err)
+	}
+
 }
