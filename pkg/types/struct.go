@@ -1,73 +1,53 @@
 package types
 
 type Order struct {
-	IdOrder int64 `json:"id_order"`
-	User    `json:"user"`
-	Device  `json:"device"`
-	Status  `json:"status"`
-	Master  `json:"master"`
+	OrderUid          string `json:"order_uid"`
+	TrackNumber       string `json:"track_number"`
+	Entry             string `json:"entry"`
+	Delivery          `json:"delivery"`
+	Payment           `json:"payment"`
+	Items             `json:"items"`
+	Locale            string `json:"locate"`
+	InternalSignature string `json:"internal_signature"`
+	CustomerId        string `json:"customer_id"`
+	DeliveryService   string `json:"delivery_service"`
+	Shardkey          string `json:"shardkey"`
+	SmId              uint64 `json:"sm_id"`
+	DateCreated       string `json:"date_created"`
+	OofShard          string `json:"oof_shard"`
 }
-type User struct {
-	Id        int64  `json:"id_user"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	MidlName  string `json:"midl_name"`
-	Phone     string `json:"phone"`
+type Delivery struct {
+	Name    string `json:"name"`
+	Phone   string `json:"phone"`
+	Zip     string `json:"zip"`
+	City    string `json:"city"`
+	Address string `json:"address"`
+	Region  string `json:"region"`
+	Email   string `json:"email"`
 }
-type Device struct {
-	Id            int64  `json:"id_device"`
-	TypeEquipment string `json:"type_equipment"`
-	Brand         string `json:"brand"`
-	Model         string `json:"model"`
-	Sn            string `json:"sn"`
-	Defect        string `json:"defect"`
-}
-
-type Id struct {
-	IdOrder  int64 `json:"id_order"`
-	IdUser   int64 `json:"id_user"`
-	IdDevice int64 `json:"id_device"`
-	IdMaster int64 `json:"id_master"`
-	IdStatus int64 `json:"id_status"`
-}
-
-type Work struct {
-	Id        int64  `json:"id"`
-	WorkName  string `json:"work_name"`
-	WorkPrice string `json:"work_price"`
-}
-type Part struct {
-	Id         int64  `json:"id"`
-	PartsName  string `json:"parts_name"`
-	PartsPrice string `json:"parts_price"`
-}
-type Status struct {
-	Id          int64  `json:"id_status"`
-	StatusOrder string `json:"status_order"`
-}
-type Price struct {
-	PriceWork  string `json:"price_work"`
-	PriceParts string `json:"price_parts"`
+type Payment struct {
+	Transaction  int64  `json:"transaction"`
+	RequestId    string `json:"request_id"`
+	Currency     string `json:"currency"`
+	Provider     string `json:"provider"`
+	Amount       int64  `json:"amount"`
+	PaymentDt    int64  `json:"payment_dt"`
+	Bank         string `json:"bank"`
+	DeliveryCost int64  `json:"delivery_cost"`
+	GoodsTotal   int64  `json:"goods_total"`
+	CustomFee    int64  `json:"custom_fee"`
 }
 
-type Master struct {
-	Id        int64  `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	MidlName  string `json:"midl_name"`
-	Phone     string `json:"phone"`
-}
-type OrderParts struct {
-	Id        int64  `json:"id"`
-	IdOrder   int64  `json:"id_order"`
-	IdPart    int64  `json:"id_part"`
-	PartName  string `json:"part_name"`
-	PartPrice string `json:"part_price"`
-}
-type OrderWorks struct {
-	Id        int64  `json:"id"`
-	IdOrder   int64  `json:"id_order"`
-	IdWork    int64  `json:"id_work"`
-	WorkName  string `json:"work_name"`
-	WorkPrice string `json:"work_price"`
+type Items struct {
+	ChrtId      int64  `json:"chrt_id"`
+	TrackNumber string `json:"track_number"`
+	Price       int64  `json:"price"`
+	Rid         string `json:"rid"`
+	Name        string `json:"name"`
+	Sale        int64  `json:"sale"`
+	Size        string `json:"size"`
+	TotalPrice  int64  `json:"total_price"`
+	NmId        int64  `json:"nm_id"`
+	Brand       string `json:"brand"`
+	Status      int64  `json:"status"`
 }
