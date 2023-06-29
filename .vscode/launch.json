@@ -8,7 +8,7 @@
             "mode": "auto",
             "program": "${workspaceFolder}/cmd/app",
             "cwd": "${workspaceFolder}",
-            "env": {"bduser": "postgres", "bdpass": "root", "nats_clusterID": "test-cluster", "clientI": "Rustam" },
+            "env": {"bduser": "postgres", "bdpass": "root", "nats_clusterID": "test-cluster", "nats_clientID": "client-123" },
         }
     ]
 }
