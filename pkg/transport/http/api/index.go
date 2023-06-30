@@ -27,7 +27,7 @@ func NewOrderAPI(db *sql.DB, log *logrus.Logger) *OrderAPI {
 func (a *OrderAPI) GetOrder(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, _ := strconv.ParseInt(vars["id"], 10, 64)
-	result, err := a.order.GetOrderByID(id)
+	result, err := a.order.ReadOrders(id)
 	if err != nil {
 		a.log.Error(err, "не удалось считать данные ордера из базы данных по ид")
 		w.WriteHeader(500)
