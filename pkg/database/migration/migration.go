@@ -2,6 +2,7 @@ package migration
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -31,10 +32,10 @@ func Migration(db *sql.DB, log *logrus.Logger) (err error) {
 
 	m, err := migrate.New("file://C:/Users/Asus/Documents/WB_L0/pkg/database/migration/", "postgres://postgres:root@localhost:5432/wb?sslmode=disable")
 	if err != nil {
-		log.Fatal("неудалось подключится ", err)
+		log.Fatal("не удалось подключится ", err)
 	}
-	if err := m.Up(); err != nil {
-		log.Fatal(err)
+	if err := m.Up(); err != nil && !errors.Is(err, migrate.ErrNoChange) {
+		log.Fatal("не удалось запустить миграцию ", err)
 	}
 	return err
 }

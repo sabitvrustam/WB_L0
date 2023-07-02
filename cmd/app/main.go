@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/sabitvrustam/WB_L0/pkg/cashe"
 	"github.com/sabitvrustam/WB_L0/pkg/database"
 	"github.com/sabitvrustam/WB_L0/pkg/database/migration"
 	"github.com/sabitvrustam/WB_L0/pkg/logger"
@@ -17,6 +18,8 @@ func main() {
 	}
 
 	err = migration.Migration(db, log)
+
+	_, err = cashe.StartCashe(log)
 
 	_, err = natsStreaming.NatsConnect(log)
 	if err != nil {

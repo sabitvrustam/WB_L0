@@ -1,6 +1,7 @@
 package natsStreaming
 
 import (
+	"fmt"
 	"os"
 
 	stan "github.com/nats-io/stan.go"
@@ -18,6 +19,14 @@ func NatsConnect(log *logrus.Logger) (sc stan.Conn, err error) {
 	} else {
 		log.Info("Подключение к nats stening")
 	}
+
+	sc.Publish("foo", []byte("Hello World")) // does not return until an ack has been received from NATS Streaming
+
+	// Simple Async Subscriber
+	sub, _ := sc.Subscribe("foo", func(m *stan.Msg) {
+		fmt.Printf("Received a message: %s\n", string(m.Data))
+	})
+	sub.Unsubscribe()
 
 	return sc, err
 }
