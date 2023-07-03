@@ -26,7 +26,7 @@ type Delivery struct {
 	Email   string `json:"email"`
 }
 type Payment struct {
-	Transaction  int64  `json:"transaction"`
+	Transaction  string `json:"transaction"`
 	RequestId    string `json:"request_id"`
 	Currency     string `json:"currency"`
 	Provider     string `json:"provider"`
@@ -38,7 +38,7 @@ type Payment struct {
 	CustomFee    int64  `json:"custom_fee"`
 }
 
-type Items struct {
+type Items []struct {
 	ChrtId      int64  `json:"chrt_id"`
 	TrackNumber string `json:"track_number"`
 	Price       int64  `json:"price"`

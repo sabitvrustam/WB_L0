@@ -1,10 +1,13 @@
 package natsStreaming
 
 import (
-	"fmt"
+	"io/ioutil"
+	"log"
 	"os"
+	"time"
 
 	stan "github.com/nats-io/stan.go"
+	"github.com/sabitvrustam/WB_L0/pkg/service"
 	"github.com/sirupsen/logrus"
 )
 
@@ -19,14 +22,31 @@ func NatsConnect(log *logrus.Logger) (sc stan.Conn, err error) {
 	} else {
 		log.Info("Подключение к nats stening")
 	}
-
-	sc.Publish("foo", []byte("Hello World")) // does not return until an ack has been received from NATS Streaming
-
-	// Simple Async Subscriber
-	sub, _ := sc.Subscribe("foo", func(m *stan.Msg) {
-		fmt.Printf("Received a message: %s\n", string(m.Data))
-	})
-	sub.Unsubscribe()
-
 	return sc, err
+}
+
+func NatsWrit(sc stan.Conn) {
+	jsonFile, err := os.Open("pkg/transport/natsStreaming/model.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	order, err := ioutil.ReadAll(jsonFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer jsonFile.Close()
+
+	for {
+		err := sc.Publish("foo", []byte(order))
+		time.Sleep(10 * time.Microsecond)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+func NatsRead(sc stan.Conn) {
+	_, _ = sc.Subscribe("foo", func(m *stan.Msg) {
+		service.OrderWrite(string(m.Data))
+	}, stan.DeliverAllAvailable())
 }

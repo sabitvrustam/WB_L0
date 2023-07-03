@@ -18,14 +18,21 @@ func main() {
 	}
 
 	err = migration.Migration(db, log)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	_, err = cashe.StartCashe(log)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	_, err = natsStreaming.NatsConnect(log)
+	sc, err := natsStreaming.NatsConnect(log)
 	if err != nil {
 		panic(err)
 	}
-
+	go natsStreaming.NatsWrit(sc)
+	go natsStreaming.NatsRead(sc)
 	http.StartHandler(db, log)
 
 }
