@@ -1,26 +1,26 @@
 CREATE TABLE IF NOT EXISTS delivery(
    id serial PRIMARY KEY,
-   name VARCHAR (50) UNIQUE NOT NULL,
+   name VARCHAR (50) NOT NULL,
    phone VARCHAR (50) NOT NULL,
-   zip VARCHAR (300) UNIQUE NOT NULL,
-   city VARCHAR (50) UNIQUE NOT NULL,
-   address VARCHAR (50) UNIQUE NOT NULL,
-   region VARCHAR (50) UNIQUE NOT NULL,
-   email VARCHAR (50) UNIQUE NOT NULL
+   zip VARCHAR (300) NOT NULL,
+   city VARCHAR (50) NOT NULL,
+   address VARCHAR (50) NOT NULL,
+   region VARCHAR (50) NOT NULL,
+   email VARCHAR (50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS payment(
    id serial PRIMARY KEY,
-   transaction VARCHAR (50) UNIQUE NOT NULL,
-   request_id VARCHAR (50) NOT NULL,
-   currency VARCHAR (300) UNIQUE NOT NULL,
-   provider VARCHAR (50) UNIQUE NOT NULL,
-   amount VARCHAR (50) UNIQUE NOT NULL,
-   payment_dt VARCHAR (50) UNIQUE NOT NULL,
-   bank VARCHAR (50) UNIQUE NOT NULL,
-   delivery_cost VARCHAR (50) UNIQUE NOT NULL,
-   goods_total VARCHAR (50) UNIQUE NOT NULL,
-   custom_fee VARCHAR (50) UNIQUE NOT NULL
+   transaction VARCHAR (50) NOT NULL,
+   request_id VARCHAR (50),
+   currency VARCHAR (50) NOT NULL,
+   provider VARCHAR (50) NOT NULL,
+   amount INTEGER  NOT NULL,
+   payment_dt INTEGER NOT NULL,
+   bank VARCHAR (50) NOT NULL,
+   delivery_cost INTEGER NOT NULL,
+   goods_total INTEGER NOT NULL,
+   custom_fee INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS items(
@@ -40,19 +40,19 @@ CREATE TABLE IF NOT EXISTS items(
 
 CREATE TABLE IF NOT EXISTS orders(
    id serial PRIMARY KEY,
-   order_uid VARCHAR (50) UNIQUE NOT NULL,
+   order_uid VARCHAR (50) NOT NULL,
    track_number VARCHAR (50) NOT NULL,
-   entry VARCHAR (300) UNIQUE NOT NULL,
-   delivery_id INT UNIQUE NOT NULL,
-   payment_id INT UNIQUE NOT NULL,
-   locate VARCHAR (50) UNIQUE NOT NULL,
-   internal_signature VARCHAR (50) UNIQUE NOT NULL,
-   customer_id VARCHAR (50) UNIQUE NOT NULL,
-   delivery_service VARCHAR (50) UNIQUE NOT NULL,
-   shardkey VARCHAR (50) UNIQUE NOT NULL,
-   sm_id VARCHAR (50) UNIQUE NOT NULL,
-   date_created VARCHAR (50) UNIQUE NOT NULL,
-   oof_shard VARCHAR (50) UNIQUE NOT NULL,
+   entry VARCHAR (300) NOT NULL,
+   delivery_id INTEGER NOT NULL,
+   payment_id INTEGER NOT NULL,
+   locate VARCHAR (50) NOT NULL,
+   internal_signature VARCHAR (50) NOT NULL,
+   customer_id VARCHAR (50) NOT NULL,
+   delivery_service VARCHAR NOT NULL,
+   shardkey VARCHAR (50) NOT NULL,
+   sm_id INTEGER NOT NULL,
+   date_created VARCHAR (50) NOT NULL,
+   oof_shard VARCHAR (50) NOT NULL,
    CONSTRAINT fk_delivery
       FOREIGN KEY(delivery_id) 
 	  REFERENCES delivery(id)

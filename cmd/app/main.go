@@ -5,6 +5,8 @@ import (
 	"github.com/sabitvrustam/WB_L0/pkg/database"
 	"github.com/sabitvrustam/WB_L0/pkg/database/migration"
 	"github.com/sabitvrustam/WB_L0/pkg/logger"
+
+	//"github.com/sabitvrustam/WB_L0/pkg/service"
 	"github.com/sabitvrustam/WB_L0/pkg/transport/http"
 	"github.com/sabitvrustam/WB_L0/pkg/transport/natsStreaming"
 )
@@ -32,7 +34,10 @@ func main() {
 		panic(err)
 	}
 	go natsStreaming.NatsWrit(sc)
-	go natsStreaming.NatsRead(sc)
+	go natsStreaming.NatsRead(sc, db, log)
+
+	//service := service.NewService(db, log)
+
 	http.StartHandler(db, log)
 
 }

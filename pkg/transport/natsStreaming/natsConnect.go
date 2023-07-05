@@ -1,6 +1,7 @@
 package natsStreaming
 
 import (
+	"database/sql"
 	"io/ioutil"
 	"log"
 	"os"
@@ -45,8 +46,9 @@ func NatsWrit(sc stan.Conn) {
 	}
 }
 
-func NatsRead(sc stan.Conn) {
+func NatsRead(sc stan.Conn, db *sql.DB, log *logrus.Logger) {
+	s := service.NewService(db, log)
 	_, _ = sc.Subscribe("foo", func(m *stan.Msg) {
-		service.OrderWrite(string(m.Data))
+		s.OrderWrite(string(m.Data))
 	}, stan.DeliverAllAvailable())
 }
