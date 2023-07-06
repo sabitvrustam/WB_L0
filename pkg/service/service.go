@@ -44,13 +44,19 @@ func (s *Service) OrderWrite(order string) {
 	time.Sleep(10 * time.Millisecond)
 }
 
-func (s *Service) OrderRead(id int64) (err error) {
+func (s *Service) OrderRead(id int64) (order types.Order, err error) {
 	value, found := s.cache.Get(id)
 	if !found {
-		panic("missing value")
+		d := orders.NewOrder(s.db, s.log)
+		order, err := d.OrderRead(id)
+		ok := s.cache.Set(id, &order, 1)
+		if !ok {
+			s.log.Error("не удалось записать данные в кэш")
+		}
+		return order, err
 	}
-
+	order, _ = value.(types.Order)
 	s.log.Info(value)
 
-	return err
+	return order, err
 }
