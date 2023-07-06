@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/dgraph-io/ristretto"
 	stan "github.com/nats-io/stan.go"
 	"github.com/sabitvrustam/WB_L0/pkg/service"
 	"github.com/sirupsen/logrus"
@@ -39,15 +40,15 @@ func NatsWrit(sc stan.Conn) {
 
 	for {
 		err := sc.Publish("foo", []byte(order))
-		time.Sleep(10 * time.Microsecond)
+		time.Sleep(1 * time.Second)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
 }
 
-func NatsRead(sc stan.Conn, db *sql.DB, log *logrus.Logger) {
-	s := service.NewService(db, log)
+func NatsRead(sc stan.Conn, db *sql.DB, log *logrus.Logger, cash *ristretto.Cache) {
+	s := service.NewService(db, log, cash)
 	_, _ = sc.Subscribe("foo", func(m *stan.Msg) {
 		s.OrderWrite(string(m.Data))
 	}, stan.DeliverAllAvailable())

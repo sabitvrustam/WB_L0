@@ -24,7 +24,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	_, err = cashe.StartCashe(log)
+	cache, err := cashe.StartCashe(log)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,7 +34,7 @@ func main() {
 		panic(err)
 	}
 	go natsStreaming.NatsWrit(sc)
-	go natsStreaming.NatsRead(sc, db, log)
+	go natsStreaming.NatsRead(sc, db, log, cache)
 
 	//service := service.NewService(db, log)
 

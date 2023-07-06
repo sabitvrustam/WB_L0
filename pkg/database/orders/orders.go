@@ -20,10 +20,10 @@ func NewOrder(db *sql.DB, log *logrus.Logger) *Order {
 		log: log}
 }
 
-func (d *Order) OrdersWrite(order *types.Order) (err error) {
+func (d *Order) OrdersWrite(order *types.Order) (orderId int64, err error) {
 	var deliveriId int64
 	var paymentId int64
-	var orderId int64
+	var itemId int64
 	deliverySq := sq.Insert("delivery").
 		Columns("name", "phone", "zip", "city", "address", "region", "email").
 		Values(order.Name, order.Phone, order.Zip, order.City, order.Address, order.Region, order.Email).
@@ -55,7 +55,24 @@ func (d *Order) OrdersWrite(order *types.Order) (err error) {
 		d.log.Error("не удалось записать данные заказа в базу данных", err)
 	}
 
-	d.log.Info(orderId, paymentId, deliveriId)
+	for _, n := range order.Items {
+		itemsSq := sq.Insert("items").
+			Columns("chrt_id", "track_number", "price", "rid", "name", "sale", "size", "total_price", "nm_id", "brand", "status").
+			Values(n.ChrtId, n.TrackNumber, n.Price, n.Rid, n.Name, n.Sale, n.Size, n.TotalPrice, n.NmId, n.Brand, n.Status).
+			Suffix("RETURNING \"id\"")
+		err = itemsSq.RunWith(d.db).PlaceholderFormat(sq.Dollar).QueryRow().Scan(&itemId)
+		if err != nil {
+			d.log.Error("не удалось записать данные заказа в базу данных", err)
+		}
 
-	return err
+		orderItemsSq := sq.Insert("orders_items").
+			Columns("order_id", "item_id").
+			Values(orderId, itemId)
+		_, err = orderItemsSq.RunWith(d.db).PlaceholderFormat(sq.Dollar).Exec()
+		if err != nil {
+			d.log.Error("не удалось записать данные заказа в базу данных", err)
+		}
+	}
+	d.log.Info(orderId, paymentId, deliveriId, itemId)
+	return orderId, err
 }

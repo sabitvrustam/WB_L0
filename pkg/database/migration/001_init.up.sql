@@ -25,17 +25,17 @@ CREATE TABLE IF NOT EXISTS payment(
 
 CREATE TABLE IF NOT EXISTS items(
    id serial PRIMARY KEY,
-   chrt_id VARCHAR (50) UNIQUE NOT NULL,
+   chrt_id VARCHAR (50) NOT NULL,
    track_number VARCHAR (50) NOT NULL,
-   price VARCHAR (300) UNIQUE NOT NULL,
-   rid VARCHAR (50) UNIQUE NOT NULL,
-   name VARCHAR (50) UNIQUE NOT NULL,
-   sale VARCHAR (50) UNIQUE NOT NULL,
-   size VARCHAR (50) UNIQUE NOT NULL,
-   total_price VARCHAR (50) UNIQUE NOT NULL,
-   nm_id VARCHAR (50) UNIQUE NOT NULL,
-   brand VARCHAR (50) UNIQUE NOT NULL,
-   status VARCHAR (50) UNIQUE NOT NULL
+   price INTEGER  NOT NULL,
+   rid VARCHAR (50) NOT NULL,
+   name VARCHAR (50) NOT NULL,
+   sale INTEGER  NOT NULL,
+   size VARCHAR (50) NOT NULL,
+   total_price INTEGER  NOT NULL,
+   nm_id INTEGER  NOT NULL,
+   brand VARCHAR (50) NOT NULL,
+   status INTEGER  NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS orders(
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS orders(
 
 CREATE TABLE IF NOT EXISTS orders_items(
    id serial PRIMARY KEY,
-   order_id INT UNIQUE NOT NULL,
-   item_id INT UNIQUE NOT NULL,
+   order_id INT NOT NULL,
+   item_id INT NOT NULL,
    CONSTRAINT fk_order
       FOREIGN KEY(order_id) 
 	  REFERENCES orders(id)
