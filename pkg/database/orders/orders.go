@@ -76,3 +76,31 @@ func (d *Order) OrdersWrite(order *types.Order) (orderId int64, err error) {
 	d.log.Info(orderId, paymentId, deliveriId, itemId)
 	return orderId, err
 }
+func (d *Order) OrderRead(id int64) (order types.Order, err error) {
+	sb := sq.Select("o.order_uid", "o.track_number", "o.entry",
+		"d.name", "d.phone", "d.zip", "d.city", "d.address", "d.region", "d.email",
+		"p.transaction", "p.request_id", "p.currency", "p.provider", "p.amount", "p.payment_dt",
+		"p.bank", "p.delivery_cost", "p.goods_total", "p.custom_fee",
+	).
+		From("orders AS o").
+		Join("delivery AS d ON o.delivery_id = d.id").
+		Join("payment AS p ON o.payment_id = p.id")
+	sb = sb.Where(sq.Eq{"o.id": id})
+
+	res, err := sb.RunWith(d.db).Query()
+	if err != nil {
+		d.log.Error(err, "не удалось считать заказы из базы данных")
+	}
+	for res.Next() {
+		var result types.Order
+		err = res.Scan(&result.OrderUid, &result.TrackNumber, &result.Entry,
+			&result.Name, &result.Phone, &result.Zip, &result.City, &result.Address, &result.Region, &result.Email,
+			&result.Transaction, &result.RequestId, &result.Currency, &result.Provider, &result.Amount, &result.PaymentDt,
+			&result.Bank, &result.DeliveryCost, &result.GoodsTotal, &result.CustomFee)
+		if err != nil {
+			d.log.Error(err)
+		}
+		order = result
+	}
+	return order, err
+}
