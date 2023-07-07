@@ -3,19 +3,213 @@
 
 <div class="container">
     <div class="row row-cols-auto">
-        <div class="p-3 mb-2 bg-dark text-white">
-What is Lorem Ipsum?
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-    type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-    Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
-    Lorem Ipsum
+        <div class="col">
+            <table>
+                <tbody>
+                    <form onsubmit="return OrderStatus(this)" method="get">
+
+                        <tr>
+                            <td><label>Hомер квитанции</label></td>
+                            <td><input type="text" placeholder="номер квитанции" name="id" id="id"></td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td></td>
+                            <td><button class="btn btn-primary btn-sm" type="reset">сброс</button>
+                                <button class="btn btn-primary btn-sm" type="submit">Поиск</button>
+                            </td>
+
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
         </div>
+    </div>
+</div>
+<div class="container" id="orderStatus">
+    <div class="row row-cols-auto">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: center;">Order</th>
+                    </tr>
+                </thead>
+                
+                
+                <tbody>
+                    <form>
+                        <tr>
+                            <td><label>order_uid</label></td>
+                            <td style="text-align: center;"><label id="order_uid"> </label></td>
+                        </tr>
+                        <tr>
+                            <td><label>track_number</label></td>
+                            <td style="text-align: center;"><label id="track_number"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>entry</label></td>
+                            <td style="text-align: center;"><label id="entry"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>locale</label></td>
+                            <td style="text-align: center;"><label id="locale"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>internal_signature</label></td>
+                            <td style="text-align: center;"><label id="internal_signature"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>customer_id</label></td>
+                            <td style="text-align: center;"><label id="customer_id"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>delivery_service</label></td>
+                            <td style="text-align: center;"><label id="delivery_service"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>shardkey</label></td>
+                            <td style="text-align: center;"><label id="shardkey"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>sm_id</label></td>
+                            <td style="text-align: center;"><label id="sm_id"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>date_created</label></td>
+                            <td style="text-align: center;"><label id="date_created"></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>oof_shard</label></td>
+                            <td style="text-align: center;"><label id="oof_shard"></label></td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: center;">Delyvery</th>
+                    </tr>
+                </thead>
+                <tbody id="parts">
+                    <tr>
+                        <td><label>name</label></td>
+                        <td style="text-align: center;"><label id="name"></label></td>
+                    </tr>                       
+                     <tr>
+                        <td><label>phone</label></td>
+                        <td style="text-align: center;"><label id="phone"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>zip</label></td>
+                        <td style="text-align: center;"><label id="zip"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>city</label></td>
+                        <td style="text-align: center;"><label id="city"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>address</label></td>
+                        <td style="text-align: center;"><label id="address"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>region</label></td>
+                        <td style="text-align: center;"><label id="region"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>email</label></td>
+                        <td style="text-align: center;"><label id="email"></label></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: center;">Payment</th>
+                    </tr>
+                  </thead>
+                <tbody id="works">
+                    <tr>
+                        <td><label>transaction</label></td>
+                        <td style="text-align: center;"><label id="transaction"> </label></td>
+                    </tr>
+                    <tr>
+                        <td><label>request_id</label></td>
+                        <td style="text-align: center;"><label id="request_id"> </label></td>
+                    </tr>
+                    <tr>
+                        <td><label>currency</label></td>
+                        <td style="text-align: center;"><label id="currency"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>provider</label></td>
+                        <td style="text-align: center;"><label id="provider"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>amount</label></td>
+                        <td style="text-align: center;"><label id="amount"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>payment_dt</label></td>
+                        <td style="text-align: center;"><label id="payment_dt"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>bank</label></td>
+                        <td style="text-align: center;"><label id="bank"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>delivery_cost</label></td>
+                        <td style="text-align: center;"><label id="delivery_cost"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>goods_total</label></td>
+                        <td style="text-align: center;"><label id="goods_total"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>custom_fee</label></td>
+                        <td style="text-align: center;"><label id="custom_fee"></label></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: center;">Items</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ChrtId</th>
+                        <th scope="col">TrackNumber</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Rid</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Sale</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">TotalPrice</th>
+                        <th scope="col">NmId</th>
+                        <th scope="col">Brandr</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="items"></tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 
 
+
+
+<script src="/static/js/order_status.js"> </script>
 
 {{ template "footer" }}
 

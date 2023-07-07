@@ -38,6 +38,6 @@ func main() {
 
 	//service := service.NewService(db, log)
 
-	http.StartHandler(db, log)
+	http.StartHandler(db, log, cache)
 
 }
